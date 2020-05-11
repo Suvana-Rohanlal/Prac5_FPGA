@@ -5,6 +5,7 @@ module top(
     // Check your constraint file to get the right names
     input  CLK100MHZ,
     input [7:0] SW,
+    input BTNL,
     output AUD_PWM, 
     output AUD_SD,
     output [2:0] LED
@@ -24,14 +25,21 @@ module top(
     
     // Instantiate block memory here
     // Copy from the instantiation template and change signal names to the ones under "MemoryIO"
-    
+    blk_mem_gen_0 your_instance_name (
+  .clka(CLK100MHZ),    // input wire clka
+  .ena(ena),      // input wire ena
+  .wea(wea),      // input wire [0 : 0] wea
+  .addra(addra),  // input wire [7 : 0] addra
+  .dina(dina),    // input wire [10 : 0] dina
+  .douta(douta)  // output wire [10 : 0] douta
+);
     //PWM Out - this gets tied to the BRAM
     reg [10:0] PWM;
     
     // Instantiate the PWM module
     // PWM should take in the clock, the data from memory
     // PWM should output to AUD_PWM (or whatever the constraints file uses for the audio out.
-
+    pwm_module pwm1(CLK100MHZ, douta, AUD_PWM);
     
     // Devide our clock down
     reg [12:0] clkdiv = 0;
@@ -44,13 +52,20 @@ module top(
 always @(posedge CLK100MHZ) begin   
     PWM <= douta; // tie memory output to the PWM input
     
-    f_base[8:0] = 746 + SW[7:0]; // get the "base" frequency to work from 
+    f_base[8:0] = 261 + SW[7:0]; // get the "base" frequency to work from 
     
     // Loop to change the output note IF we're in the arp state
-    
-
+    note_switch = note_switch + 1;    
+    if(note_switch == 50000000)begin 
+        note = note +1;
+        note_switch = 0;
+    end
     // FSM to switch between notes, otherwise just output the base note.
-    
+    clkdiv <= clkdiv +1;
+    if(clkdiv >= f_base*2)begin
+        clkdiv[12:0] <= 0;
+        addra <= addra +1;
+    end
 end
 
 
