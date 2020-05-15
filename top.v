@@ -24,6 +24,14 @@ module top(
     
     // Instantiate block memory here
     // Copy from the instantiation template and change signal names to the ones under "MemoryIO"
+    BRAM test (
+        .clka(CLK100MHZ),    // input wire clka
+        .ena(ena),      // input wire ena
+        .wea(wea),      // input wire [0 : 0] wea
+        .addra(addra),  // input wire [7 : 0] addra
+        .dina(dina),    // input wire [10 : 0] dina
+        .douta(douta)  // output wire [10 : 0] douta
+    );
     
     //PWM Out - this gets tied to the BRAM
     reg [10:0] PWM;
@@ -31,7 +39,11 @@ module top(
     // Instantiate the PWM module
     // PWM should take in the clock, the data from memory
     // PWM should output to AUD_PWM (or whatever the constraints file uses for the audio out.
-
+    pwm_module pwm (
+        .clk(CLK100MHZ),
+        .PWM_in(PWM),
+        .PWM_out(AUD_PWM)
+    );
     
     // Devide our clock down
     reg [12:0] clkdiv = 0;
@@ -41,17 +53,16 @@ module top(
     reg [1:0] note = 0;
     reg [8:0] f_base = 0;
     
-always @(posedge CLK100MHZ) begin   
-    PWM <= douta; // tie memory output to the PWM input
+    always @(posedge CLK100MHZ) begin   
+        PWM <= douta; // tie memory output to the PWM input
     
-    f_base[8:0] = 746 + SW[7:0]; // get the "base" frequency to work from 
+        f_base[8:0] = 746 + SW[7:0]; // get the "base" frequency to work from 
     
-    // Loop to change the output note IF we're in the arp state
-    
+        // Loop to change the output note IF we're in the arp state
 
-    // FSM to switch between notes, otherwise just output the base note.
+        // FSM to switch between notes, otherwise just output the base note.
     
-end
+    end
 
 
 assign AUD_SD = 1'b1;  // Enable audio out
