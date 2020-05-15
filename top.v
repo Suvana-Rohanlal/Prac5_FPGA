@@ -5,6 +5,7 @@ module top(
     // Check your constraint file to get the right names
     input  CLK100MHZ,
     input [7:0] SW,
+    input BTNL,
     output AUD_PWM, 
     output AUD_SD,
     output [2:0] LED
@@ -57,11 +58,54 @@ module top(
         PWM <= douta; // tie memory output to the PWM input
     
         f_base[8:0] = 746 + SW[7:0]; // get the "base" frequency to work from 
-    
+        
+        
         // Loop to change the output note IF we're in the arp state
-
+        if (arp_switch == 1) begin
+            
+            note_switch <= note_switch + 1;
+            if (note_switch == 50000000) begin
+                note = note + 1;
+                note_switch = 0;
+            end
+        end
         // FSM to switch between notes, otherwise just output the base note.
-    
+        clkdiv <= clkdiv + 1;
+        case (note)
+            0: begin
+                if (clkdiv >= f_base*2) begin
+                    clkdiv[12:0] <= 0;
+                    addra <= addra +1;
+                end
+            end
+            1: begin
+                if (clkdiv >= f_base*5/4) begin
+                    clkdiv[12:0] <= 0;
+                    addra <= addra +1;
+                end
+            end
+            2: begin
+                if (clkdiv >= f_base*3/2) begin
+                    clkdiv[12:0] <= 0;
+                    addra <= addra +1;
+                end
+            end
+            
+            3: begin
+                if (clkdiv >= f_base) begin
+                    clkdiv[12:0] <= 0;
+                    addra <= addra +1;
+                end            
+            end
+            
+            default: begin
+                if (clkdiv >= 1493) begin
+                    clkdiv[12:0] <= 0;
+                    addra <= addra +1;
+                end
+            end
+                
+        endcase
     end
 
 
