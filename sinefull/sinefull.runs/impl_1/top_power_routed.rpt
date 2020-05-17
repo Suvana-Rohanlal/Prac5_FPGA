@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date             : Sun May 17 14:19:58 2020
+| Date             : Sun May 17 20:49:40 2020
 | Host             : DESKTOP-INQMT5F running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -58,7 +58,7 @@ Table of Contents
 |   Register     |    <0.001 |       53 |    126800 |            0.04 |
 |   CARRY4       |    <0.001 |        2 |     15850 |            0.01 |
 |   Others       |     0.000 |        6 |       --- |             --- |
-| Signals        |    <0.001 |       89 |       --- |             --- |
+| Signals        |    <0.001 |       90 |       --- |             --- |
 | Block RAM      |    <0.001 |      0.5 |       135 |            0.37 |
 | I/O            |    <0.001 |        3 |       210 |            1.43 |
 | Static Power   |     0.097 |          |           |                 |

@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Sun May 17 14:18:53 2020
+| Date         : Sun May 17 20:48:17 2020
 | Host         : DESKTOP-INQMT5F running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -58,10 +58,10 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              34 |           12 |
+| No           | No                    | No                     |              34 |           10 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |              19 |            5 |
+| Yes          | No                    | No                     |              19 |            4 |
 | Yes          | No                    | Yes                    |               0 |            0 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
@@ -73,9 +73,9 @@ Table of Contents
 +----------------------+---------------+------------------+------------------+----------------+
 |     Clock Signal     | Enable Signal | Set/Reset Signal | Slice Load Count | Bel Load Count |
 +----------------------+---------------+------------------+------------------+----------------+
-|  CLK100MHZ_IBUF_BUFG | sel           |                  |                3 |              8 |
+|  CLK100MHZ_IBUF_BUFG | sel           |                  |                2 |              8 |
 |  CLK100MHZ_IBUF_BUFG | pwm1/p_0_in   |                  |                2 |             11 |
-|  CLK100MHZ_IBUF_BUFG |               |                  |               12 |             34 |
+|  CLK100MHZ_IBUF_BUFG |               |                  |               10 |             34 |
 +----------------------+---------------+------------------+------------------+----------------+
 
 
